@@ -8,6 +8,7 @@ Group:		Applications/Publishing
 Source0:	ftp://ftp.astart.com/pub/LPRng/LPRngTool/%{name}-%{version}.tgz
 BuildRequires:	autoconf
 BuildRequires:	automake
+Requires:	samba
 Requires:	ghostscript
 Requires:	tcl
 Requires:	tk >= 1.50
