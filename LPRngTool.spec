@@ -20,10 +20,11 @@ Requires:	ifhp >= 3.4
 Obsoletes:	printtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define wmconfig /etc/X11/wmconfig
-%define controlpanel /usr/lib/rhs/control-panel
-%define filterdir /usr/libexec/filters
-%define rhfilterdir %{filterdir}/rhs
+%define _wmconfig /etc/X11/wmconfig
+%define _controlpanel /usr/lib/rhs/control-panel
+%define _filterdir /usr/libexec/filters
+%define _rhfilterdir %{_filterdir}/rhs
+%define _prefix	/usr/X11R6
 
 %description
 LPRngTool is a printer configuration and print queue monitoring and
@@ -42,13 +43,13 @@ JetDirect, locally-attached, and unfiltered printers and print queues.
 aclocal
 autoconf
 %configure \
-	--with-lprngtool_conf=%{sysconfdir}/lprngtool.conf \
-	--with-printcap_path=%{sysconfdir}/printcap \
+	--with-lprngtool_conf=%{_sysconfdir}/lprngtool.conf \
+	--with-printcap_path=%{_sysconfdir}/printcap \
 	--with-spool_directory=/var/spool/lpd  \
-	--with-ifhp_path=%{filterdir}/ifhp \
-	--with-filterdir=%{filterdir} \
-	--with-rhfilterdir=%{rhfilterdir} \
-	--with-gsupdir=%{datadir}/ghostscript \
+	--with-ifhp_path=%{_filterdir}/ifhp \
+	--with-filterdir=%{_filterdir} \
+	--with-rhfilterdir=%{_rhfilterdir} \
+	--with-gsupdir=%{_datadir}/ghostscript \
 	--with-userid=lp \
 	--with-groupid=lp 
 %{__make}
@@ -56,20 +57,14 @@ autoconf
 %install
 rm -rf $RPM_BUILD_ROOT
 rm -rf %{buildroot}
-install -d $RPM_BUILD_ROOT/%wmconfig
-install -d $RPM_BUILD_ROOT/%bindir
-install -d $RPM_BUILD_ROOT/%controlpanel
-install -d $RPM_BUILD_ROOT/%filterdir
-install -d $RPM_BUILD_ROOT/%rhfilterdir
-install -d $RPM_BUILD_ROOT/%sysconfdir
-rm -rf $RPM_BUILD_ROOT/%mandir/man1
-install -d $RPM_BUILD_ROOT/%mandir/man1
+install -d $RPM_BUILD_ROOT/{%{_wmconfig},%{_bindir},%{_controlpanel},%{_filterdir}}
+install -d $RPM_BUILD_ROOT/{%{_rhfilterdir},%{_sysconfdir},%{_mandir},%{_mandir}/man1}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-install lprngtool.wmconfig $RPM_BUILD_ROOT/%wmconfig/lprngtool  
-install lprngtool.init $RPM_BUILD_ROOT/%controlpanel/lprngtool.init
-install lprngtool.xpm  $RPM_BUILD_ROOT/%controlpanel/lprngtool.xpm
+install lprngtool.wmconfig $RPM_BUILD_ROOT/%{_wmconfig}/lprngtool  
+install lprngtool.init $RPM_BUILD_ROOT/%{_controlpanel}/lprngtool.init
+install lprngtool.xpm  $RPM_BUILD_ROOT/%{_controlpanel}/lprngtool.xpm
 
 gzip -nf9 README CHANGES INSTALL
 
@@ -78,12 +73,12 @@ gzip -nf9 README CHANGES INSTALL
 %files
 %defattr(644,root,root,755)
 %doc *.gz
-%{bindir}/*
-%{controlpanel}/lprngtool.init
-%{controlpanel}/lprngtool.xpm
-%attr(0644,root,root)   %config            %{sysconfdir}/lprngtool.conf
-%attr(0644,root,root)                      %{sysconfdir}/lprngtool.conf.sample
-%attr(0644,root,root)	%config(missingok) %{wmconfig}/lprngtool
-%{mandir}/man1/*.1*
-%dir %rhfilterdir
-%{rhfilterdir}/*
+%attr(0755,root,root) %{_bindir}/*
+%{_controlpanel}/lprngtool.init
+%{_controlpanel}/lprngtool.xpm
+%attr(0644,root,root)   %config            %{_sysconfdir}/lprngtool.conf
+%attr(0644,root,root)                      %{_sysconfdir}/lprngtool.conf.sample
+%attr(0644,root,root)	%config(missingok) %{_wmconfig}/lprngtool
+%{_mandir}/man1/*.1*
+%dir %{_rhfilterdir}
+%{_rhfilterdir}/*
