@@ -13,11 +13,11 @@ Patch0:		%{name}-ac_fixes.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	samba-client
+Requires:	LPRng >= 3.7
 Requires:	ghostscript
+Requires:	ifhp >= 3.4
 Requires:	tcl
 Requires:	tk >= 1.50
-Requires:	LPRng >= 3.7
-Requires:	ifhp >= 3.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	printtool
 
@@ -66,7 +66,8 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_filterdir}} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},%{_mandir},%{_mandir}/man1} \
 	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Settings}
 
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Settings
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
