@@ -2,7 +2,7 @@ Summary:	LPRngTool - printer configuration, monitoring and management utility wi
 Summary(pl):	LPRngTool - narzêdziem do monitorowania i zarz±dzania systemem druku LPRng
 Name:		LPRngTool
 Version:	1.3.2
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Publishing
 Source0:	ftp://ftp.lprng.com/pub/LPRng/LPRngTool/%{name}-%{version}.tgz
@@ -65,12 +65,12 @@ cp -f /usr/share/automake/config.sub .
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_filterdir}} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},%{_mandir},%{_mandir}/man1} \
-	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Settings}
+	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_desktopdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Settings
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %clean
@@ -89,5 +89,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_filterdir}/smbprint
 %{_filterdir}/printerdb
 %{_filterdir}/testpage*
-%{_applnkdir}/Settings/*
+%{_desktopdir}/*
 %{_pixmapsdir}/*
