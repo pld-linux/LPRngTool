@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=LPRngTool
+Comment=LPRngTool - printer configuration, monitoring and management utility with GUI for LPRng
+Comment[pl]=LPRngTool - narzêdziem do monitorowania i zarzz±ndzania systemem druku LPRng
+Exec=lprngtool
+Icon=LPRngTool.png
+Terminal=0
+Type=Application
+# vi: encoding=utf-8
