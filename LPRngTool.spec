@@ -1,14 +1,17 @@
 Summary:	LPRngTool - printer configuration, monitoring and management utility with GUI for LPRng
-Summary(pl):	LPRngTool jest narzêdziem do monitorowania i zarz±dzania systemem druku LPRng
+Summary(pl):	LPRngTool - narzêdziem do monitorowania i zarz±dzania systemem druku LPRng
 Name:		LPRngTool
-Version:	1.2.7
-Release:	2
+Version:	1.3.2
+Release:	1
 License:	GPL
 Group:		Applications/Publishing
-Source0:	ftp://ftp.astart.com/pub/LPRng/LPRngTool/%{name}-%{version}.tgz
+Source0:	ftp://ftp.lprng.com/pub/LPRng/LPRngTool/%{name}-%{version}.tgz
+Source1:	%{name}.desktop
+Source2:	%{name}.png
+Patch0:		%{name}-ac_fixes.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	samba
+BuildRequires:	samba-client
 Requires:	ghostscript
 Requires:	tcl
 Requires:	tk >= 1.50
@@ -17,12 +20,10 @@ Requires:	ifhp >= 3.4
 Obsoletes:	printtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_wmconfig	/etc/X11/wmconfig
-%define		_controlpanel	/usr/lib/rhs/control-panel
 %define		_ifhpfilterdir	/usr/lib/lpfilters
 %define		_filterdir	/usr/lib/filters
-%define		_rhfilterdir	%{_filterdir}/rhs
 %define		_prefix		/usr/X11R6
+%define		_mandir		%{_prefix}/man
 
 %description
 LPRngTool is a printer configuration and print queue monitoring and
@@ -44,9 +45,9 @@ SMB, Windows, HP JetDirect, lokalnie pod³±czonymi i niefiltrowanymi.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-#CFLAGS=%{rpmcflags} 
 aclocal
 %{__autoconf}
 %configure \
@@ -55,7 +56,6 @@ aclocal
 	--with-spool_directory=/var/spool/lpd  \
 	--with-ifhp_path=%{_ifhpfilterdir}/ifhp \
 	--with-filterdir=%{_filterdir} \
-	--with-rhfilterdir=%{_rhfilterdir} \
 	--with-gsupdir=%{_datadir}/ghostscript \
 	--with-userid=lp \
 	--with-groupid=lp 
@@ -63,29 +63,30 @@ aclocal
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_wmconfig},%{_bindir},%{_controlpanel},%{_filterdir}}
-install -d $RPM_BUILD_ROOT{%{_rhfilterdir},%{_sysconfdir},%{_mandir},%{_mandir}/man1}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_filterdir}} \
+	$RPM_BUILD_ROOT{%{_sysconfdir},%{_mandir},%{_mandir}/man1} \
+	$RPM_BUILD_ROOT{%{_pixmapsdir},%{_applnkdir}/Settings}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-install lprngtool.wmconfig $RPM_BUILD_ROOT%{_wmconfig}/lprngtool  
-install lprngtool.init $RPM_BUILD_ROOT%{_controlpanel}/lprngtool.init
-install lprngtool.xpm  $RPM_BUILD_ROOT%{_controlpanel}/lprngtool.xpm
-
-gzip -9nf README CHANGES INSTALL
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Settings
+install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc README CHANGES
 %attr(0755,root,root) %{_bindir}/*
-%{_controlpanel}/lprngtool.init
-%{_controlpanel}/lprngtool.xpm
-%attr(0644,root,root)   %config            %{_sysconfdir}/lprngtool.conf
-%attr(0644,root,root)                      %{_sysconfdir}/lprngtool.conf.sample
-%attr(0644,root,root)	%config(missingok) %{_wmconfig}/lprngtool
+%config %{_sysconfdir}/lprngtool.conf
+%{_sysconfdir}/lprngtool.conf.sample
 %{_mandir}/man1/*.1*
-%dir %{_rhfilterdir}
-%{_rhfilterdir}/*
+%dir %{_filterdir}
+%attr(755,root,root) %{_filterdir}/atalkprint
+%attr(755,root,root) %{_filterdir}/ncpprint
+%attr(755,root,root) %{_filterdir}/smbprint
+%{_filterdir}/printerdb
+%{_filterdir}/testpage*
+%{_applnkdir}/Settings/*
+%{_pixmapsdir}/*
