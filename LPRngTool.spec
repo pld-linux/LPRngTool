@@ -48,7 +48,7 @@ SMB, Windows, HP JetDirect, lokalnie pod³±czonymi i niefiltrowanymi.
 %patch0 -p1
 
 %build
-aclocal
+%{__aclocal}
 %{__autoconf}
 %configure \
 	--with-lprngtool_conf=%{_sysconfdir}/lprngtool.conf \
