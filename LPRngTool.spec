@@ -17,8 +17,9 @@ Requires:	tcl
 Requires:	tk >= 1.50
 Requires:	LPRng >= 3.7
 Requires:	ifhp >= 3.4
-Obsoletes:	printtool
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	printtool
 
 %define		_ifhpfilterdir	/usr/lib/lpfilters
 %define		_filterdir	/usr/lib/filters
