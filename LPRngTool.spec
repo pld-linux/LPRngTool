@@ -1,4 +1,4 @@
-Summary:	LPRngTool is a printer configuration and print queue monitoring and management utility with a graphical user interface for LPRng.
+Summary:	LPRngTool - printer configuration, monitoring and management utility with GUI for LPRng
 Summary(pl):	LPRngTool jest narzêdziem do monitorowania i zarz±dzania systemem druku LPRng
 Name:		LPRngTool
 Version:	1.2.7
@@ -20,11 +20,11 @@ Requires:	ifhp >= 3.4
 Obsoletes:	printtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define _wmconfig /etc/X11/wmconfig
-%define _controlpanel /usr/lib/rhs/control-panel
-%define _filterdir /usr/libexec/filters
-%define _rhfilterdir %{_filterdir}/rhs
-%define _prefix	/usr/X11R6
+%define		_wmconfig	/etc/X11/wmconfig
+%define		_controlpanel	/usr/lib/rhs/control-panel
+%define		_filterdir	/usr/lib/filters
+%define		_rhfilterdir	%{_filterdir}/rhs
+%define		_prefix		/usr/X11R6
 
 %description
 LPRngTool is a printer configuration and print queue monitoring and
@@ -34,6 +34,15 @@ functions of LPRng (including printer pooling, printer redirection,
 job accounting, etc), and the 'lpc' facilities for local and remote
 queue management and monitoring. LPRngTool works with SMB, Windows, HP
 JetDirect, locally-attached, and unfiltered printers and print queues.
+
+%description -l pl
+LPRngTool to narzêdzie do konfiguracji drukarki, monitorowania i
+zarz±dzania kolejk± wydruku z graficznym interfejsem u¿ytkownika. Jest
+podobne do RedHatowego printtoola, ale zwiera wiêkszo¶æ dodatkowych
+funkcji LPRng (w tym przekierowanie drukarek, przydzielanie prac
+itp.), oraz udogodnienia lpc do monitorowania i zarz±dzania lokalnymi
+oraz zdalnymi kolejkami. LPRngTool dzia³a z drukarkami i kolejkami
+SMB, Windows, HP JetDirect, lokalnie pod³±czonymi i niefiltrowanymi.
 
 %prep
 %setup -q
@@ -56,19 +65,19 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-rm -rf %{buildroot}
-install -d $RPM_BUILD_ROOT/{%{_wmconfig},%{_bindir},%{_controlpanel},%{_filterdir}}
-install -d $RPM_BUILD_ROOT/{%{_rhfilterdir},%{_sysconfdir},%{_mandir},%{_mandir}/man1}
+install -d $RPM_BUILD_ROOT{%{_wmconfig},%{_bindir},%{_controlpanel},%{_filterdir}}
+install -d $RPM_BUILD_ROOT{%{_rhfilterdir},%{_sysconfdir},%{_mandir},%{_mandir}/man1}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-install lprngtool.wmconfig $RPM_BUILD_ROOT/%{_wmconfig}/lprngtool  
-install lprngtool.init $RPM_BUILD_ROOT/%{_controlpanel}/lprngtool.init
-install lprngtool.xpm  $RPM_BUILD_ROOT/%{_controlpanel}/lprngtool.xpm
+install lprngtool.wmconfig $RPM_BUILD_ROOT%{_wmconfig}/lprngtool  
+install lprngtool.init $RPM_BUILD_ROOT%{_controlpanel}/lprngtool.init
+install lprngtool.xpm  $RPM_BUILD_ROOT%{_controlpanel}/lprngtool.xpm
 
-gzip -nf9 README CHANGES INSTALL
+gzip -9nf README CHANGES INSTALL
 
 %clean
+rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
