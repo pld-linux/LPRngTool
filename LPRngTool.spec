@@ -57,7 +57,7 @@ SMB, Windows, HP JetDirect, lokalnie pod³±czonymi i niefiltrowanymi.
 	--with-filterdir=%{_filterdir} \
 	--with-gsupdir=%{_datadir}/ghostscript \
 	--with-userid=lp \
-	--with-groupid=lp 
+	--with-groupid=lp
 %{__make}
 
 %install
