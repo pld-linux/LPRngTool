@@ -49,6 +49,7 @@ SMB, Windows, HP JetDirect, lokalnie pod³±czonymi i niefiltrowanymi.
 %build
 %{__aclocal}
 %{__autoconf}
+cp -f /usr/share/automake/config.sub .
 %configure \
 	--with-lprngtool_conf=%{_sysconfdir}/lprngtool.conf \
 	--with-printcap_path=%{_sysconfdir}/printcap \
