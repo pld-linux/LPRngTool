@@ -5,10 +5,6 @@ Version:	1.2.7
 Release:	1
 License:	GPL
 Group:		Applications/Publishing
-Group(de):	Applikationen/Publizieren
-Group(es):	Aplicaciones/Editoración
-Group(pl):	Aplikacje/Publikowanie
-Group(pt_BR):	Aplicações/Editoração
 Source0:	ftp://ftp.astart.com/pub/LPRng/LPRngTool/%{name}-%{version}.tgz
 BuildRequires:	autoconf
 BuildRequires:	automake
