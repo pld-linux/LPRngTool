@@ -19,6 +19,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_wmconfig	/etc/X11/wmconfig
 %define		_controlpanel	/usr/lib/rhs/control-panel
+%define		_ifhpfilterdir	/usr/lib/lpfilters
 %define		_filterdir	/usr/lib/filters
 %define		_rhfilterdir	%{_filterdir}/rhs
 %define		_prefix		/usr/X11R6
@@ -52,7 +53,7 @@ autoconf
 	--with-lprngtool_conf=%{_sysconfdir}/lprngtool.conf \
 	--with-printcap_path=%{_sysconfdir}/printcap \
 	--with-spool_directory=/var/spool/lpd  \
-	--with-ifhp_path=%{_filterdir}/ifhp \
+	--with-ifhp_path=%{_ifhpfilterdir}/ifhp \
 	--with-filterdir=%{_filterdir} \
 	--with-rhfilterdir=%{_rhfilterdir} \
 	--with-gsupdir=%{_datadir}/ghostscript \
