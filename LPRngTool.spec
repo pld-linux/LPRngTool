@@ -48,7 +48,7 @@ SMB, Windows, HP JetDirect, lokalnie pod³±czonymi i niefiltrowanymi.
 %build
 #CFLAGS=%{rpmcflags} 
 aclocal
-autoconf
+%{__autoconf}
 %configure \
 	--with-lprngtool_conf=%{_sysconfdir}/lprngtool.conf \
 	--with-printcap_path=%{_sysconfdir}/printcap \
