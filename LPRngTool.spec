@@ -10,19 +10,20 @@ Group(es):	Aplicaciones/Editoración
 Group(pl):	Aplikacje/Publikowanie
 Group(pt_BR):	Aplicações/Editoração
 Source0:	ftp://ftp.astart.com/pub/LPRng/LPRngTool/%{name}-%{version}.tgz
-Requires:	ghostscript tcl tk >= 1.50 LPRng >= 3.7  ifhp >= 3.4
-Provides:	LPRngTool
+BuildRequires:	autoconf
+BuildRequires:	automake
+Requires:	ghostscript
+Requires:	tcl
+Requires:	tk >= 1.50
+Requires:	LPRng >= 3.7
+Requires:	ifhp >= 3.4
 Obsoletes:	printtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define wmconfig /etc/X11/wmconfig
-%define bindir /usr/bin
 %define controlpanel /usr/lib/rhs/control-panel
 %define filterdir /usr/libexec/filters
 %define rhfilterdir %{filterdir}/rhs
-%define sysconfdir /etc
-%define mandir /usr/share/man
-%define datadir /usr/share
 
 %description
 LPRngTool is a printer configuration and print queue monitoring and
@@ -37,19 +38,19 @@ JetDirect, locally-attached, and unfiltered printers and print queues.
 %setup -q
 
 %build
-
-# configuration for Linux
-CONFIGURE_ARGS="--bindir=%{bindir} --mandir=%{mandir} \
+#CFLAGS=%{rpmcflags} 
+aclocal
+autoconf
+%configure \
 	--with-lprngtool_conf=%{sysconfdir}/lprngtool.conf \
 	--with-printcap_path=%{sysconfdir}/printcap \
 	--with-spool_directory=/var/spool/lpd  \
 	--with-ifhp_path=%{filterdir}/ifhp \
-	--with-userid=lp --with-groupid=lp \
 	--with-filterdir=%{filterdir} \
 	--with-rhfilterdir=%{rhfilterdir} \
-	--with-gsupdir=%{datadir}/ghostscript"
-
-CFLAGS=%{rpmcflags} ./configure ${CONFIGURE_ARGS}
+	--with-gsupdir=%{datadir}/ghostscript \
+	--with-userid=lp \
+	--with-groupid=lp 
 %{__make}
 
 %install
@@ -70,11 +71,13 @@ install lprngtool.wmconfig $RPM_BUILD_ROOT/%wmconfig/lprngtool
 install lprngtool.init $RPM_BUILD_ROOT/%controlpanel/lprngtool.init
 install lprngtool.xpm  $RPM_BUILD_ROOT/%controlpanel/lprngtool.xpm
 
+gzip -nf9 README CHANGES INSTALL
+
 %clean
 
 %files
 %defattr(644,root,root,755)
-%doc README CHANGES INSTALL
+%doc *.gz
 %{bindir}/*
 %{controlpanel}/lprngtool.init
 %{controlpanel}/lprngtool.xpm
