@@ -22,8 +22,6 @@ Obsoletes:	printtool
 
 %define		_ifhpfilterdir	/usr/lib/lpfilters
 %define		_filterdir	/usr/lib/filters
-%define		_prefix		/usr/X11R6
-%define		_mandir		%{_prefix}/man
 
 %description
 LPRngTool is a printer configuration and print queue monitoring and
