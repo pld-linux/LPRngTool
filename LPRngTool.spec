@@ -2,7 +2,7 @@ Summary:	LPRngTool - printer configuration, monitoring and management utility wi
 Summary(pl):	LPRngTool - narzêdziem do monitorowania i zarz±dzania systemem druku LPRng
 Name:		LPRngTool
 Version:	1.3.2
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Publishing
 Source0:	ftp://ftp.lprng.com/pub/LPRng/LPRngTool/%{name}-%{version}.tgz
@@ -17,7 +17,6 @@ Requires:	tcl
 Requires:	tk >= 1.50
 Requires:	LPRng >= 3.7
 Requires:	ifhp >= 3.4
-BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Obsoletes:	printtool
 
