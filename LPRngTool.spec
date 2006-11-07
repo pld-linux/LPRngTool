@@ -89,5 +89,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_filterdir}/smbprint
 %{_filterdir}/printerdb
 %{_filterdir}/testpage*
-%{_desktopdir}/*
+%{_desktopdir}/*.desktop
 %{_pixmapsdir}/*
