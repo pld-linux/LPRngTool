@@ -1,5 +1,5 @@
 Summary:	LPRngTool - printer configuration, monitoring and management utility with GUI for LPRng
-Summary(pl):	LPRngTool - narzêdziem do monitorowania i zarz±dzania systemem druku LPRng
+Summary(pl.UTF-8):   LPRngTool - narzÄ™dziem do monitorowania i zarzÄ…dzania systemem druku LPRng
 Name:		LPRngTool
 Version:	1.3.2
 Release:	4
@@ -33,14 +33,14 @@ job accounting, etc), and the 'lpc' facilities for local and remote
 queue management and monitoring. LPRngTool works with SMB, Windows, HP
 JetDirect, locally-attached, and unfiltered printers and print queues.
 
-%description -l pl
-LPRngTool to narzêdzie do konfiguracji drukarki, monitorowania i
-zarz±dzania kolejk± wydruku z graficznym interfejsem u¿ytkownika. Jest
-podobne do RedHatowego printtoola, ale zwiera wiêkszo¶æ dodatkowych
+%description -l pl.UTF-8
+LPRngTool to narzÄ™dzie do konfiguracji drukarki, monitorowania i
+zarzÄ…dzania kolejkÄ… wydruku z graficznym interfejsem uÅ¼ytkownika. Jest
+podobne do RedHatowego printtoola, ale zwiera wiÄ™kszoÅ›Ä‡ dodatkowych
 funkcji LPRng (w tym przekierowanie drukarek, przydzielanie prac
-itp.), oraz udogodnienia lpc do monitorowania i zarz±dzania lokalnymi
-oraz zdalnymi kolejkami. LPRngTool dzia³a z drukarkami i kolejkami
-SMB, Windows, HP JetDirect, lokalnie pod³±czonymi i niefiltrowanymi.
+itp.), oraz udogodnienia lpc do monitorowania i zarzÄ…dzania lokalnymi
+oraz zdalnymi kolejkami. LPRngTool dziaÅ‚a z drukarkami i kolejkami
+SMB, Windows, HP JetDirect, lokalnie podÅ‚Ä…czonymi i niefiltrowanymi.
 
 %prep
 %setup -q
