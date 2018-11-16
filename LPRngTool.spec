@@ -5,7 +5,7 @@ Version:	1.3.2
 Release:	4
 License:	GPL
 Group:		Applications/Publishing
-Source0:	ftp://ftp.lprng.com/pub/LPRng/LPRngTool/%{name}-%{version}.tgz
+Source0:	http://www.lprng.com/DISTRIB/LPRngTool/%{name}-%{version}.tgz
 # Source0-md5:	964bb358dbe140c7be5ebbdf0eecf64a
 Source1:	%{name}.desktop
 Source2:	%{name}.png
