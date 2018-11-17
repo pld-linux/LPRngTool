@@ -12,14 +12,18 @@ Source2:	%{name}.png
 Patch0:		%{name}-ac_fixes.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	samba-client
 Requires:	LPRng >= 3.7
 Requires:	ghostscript
 Requires:	ifhp >= 3.4
-Requires:	tcl
-Requires:	tk >= 1.50
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Requires:	tcl >= 8.3
+Requires:	tk >= 8.3
+# or mpage, selectable at configure time (see configure)
+Suggests:	a2ps
+Suggests:	samba-client
+# ncpfs (/usr/bin/nprint) for Netware printing, but it's probably too legacy to suggest these days
+# pap? (see configure)
 Obsoletes:	printtool
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_ifhpfilterdir	/usr/lib/lpfilters
 %define		_filterdir	/usr/lib/filters
@@ -51,6 +55,11 @@ SMB, Windows, HP JetDirect, lokalnie podłączonymi i niefiltrowanymi.
 %{__autoconf}
 cp -f /usr/share/automake/config.sub .
 %configure \
+	A2PS=/usr/bin/a2ps \
+	GS=/usr/bin/gs \
+	NPRINT=/usr/bin/nprint \
+	SMBCLIENT=/usr/bin/smbclient \
+	WITH=/usr/bin/wish \
 	--with-lprngtool_conf=%{_sysconfdir}/lprngtool.conf \
 	--with-printcap_path=%{_sysconfdir}/printcap \
 	--with-spool_directory=/var/spool/lpd  \
@@ -79,15 +88,15 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README CHANGES
-%attr(0755,root,root) %{_bindir}/*
-%config %{_sysconfdir}/lprngtool.conf
+%attr(755,root,root) %{_bindir}/lprngtool
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lprngtool.conf
 %{_sysconfdir}/lprngtool.conf.sample
-%{_mandir}/man1/*.1*
 %dir %{_filterdir}
 %attr(755,root,root) %{_filterdir}/atalkprint
 %attr(755,root,root) %{_filterdir}/ncpprint
 %attr(755,root,root) %{_filterdir}/smbprint
 %{_filterdir}/printerdb
 %{_filterdir}/testpage*
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*
+%{_desktopdir}/LPRngTool.desktop
+%{_pixmapsdir}/LPRngTool.png
+%{_mandir}/man1/lprngtool.1*
