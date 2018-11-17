@@ -3,13 +3,14 @@ Summary(pl.UTF-8):	LPRngTool - narzędziem do monitorowania i zarządzania syste
 Name:		LPRngTool
 Version:	1.3.2
 Release:	4
-License:	GPL
+License:	GPL v2
 Group:		Applications/Publishing
 Source0:	http://www.lprng.com/DISTRIB/LPRngTool/%{name}-%{version}.tgz
 # Source0-md5:	964bb358dbe140c7be5ebbdf0eecf64a
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-ac_fixes.patch
+URL:		http://www.lprng.com/LPRngTool.html
 BuildRequires:	autoconf
 BuildRequires:	automake
 Requires:	LPRng >= 3.7
@@ -25,8 +26,7 @@ Suggests:	samba-client
 Obsoletes:	printtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_ifhpfilterdir	/usr/lib/lpfilters
-%define		_filterdir	/usr/lib/filters
+%define		lpfiltersdir	%{_libdir}/lpfilters
 
 %description
 LPRngTool is a printer configuration and print queue monitoring and
@@ -60,14 +60,14 @@ cp -f /usr/share/automake/config.sub .
 	NPRINT=/usr/bin/nprint \
 	SMBCLIENT=/usr/bin/smbclient \
 	WITH=/usr/bin/wish \
+	--with-filterdir=%{lpfiltersdir} \
+	--with-ifhp_path=%{lpfiltersdir} \
+	--with-gsupdir=%{_datadir}/ghostscript \
 	--with-lprngtool_conf=%{_sysconfdir}/lprngtool.conf \
 	--with-printcap_path=%{_sysconfdir}/printcap \
 	--with-spool_directory=/var/spool/lpd  \
-	--with-ifhp_path=%{_ifhpfilterdir}/ifhp \
-	--with-filterdir=%{_filterdir} \
-	--with-gsupdir=%{_datadir}/ghostscript \
-	--with-userid=lp \
-	--with-groupid=lp
+	--with-groupid=lp \
+	--with-userid=lp
 %{__make}
 
 %install
@@ -91,12 +91,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/lprngtool
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lprngtool.conf
 %{_sysconfdir}/lprngtool.conf.sample
-%dir %{_filterdir}
-%attr(755,root,root) %{_filterdir}/atalkprint
-%attr(755,root,root) %{_filterdir}/ncpprint
-%attr(755,root,root) %{_filterdir}/smbprint
-%{_filterdir}/printerdb
-%{_filterdir}/testpage*
+%dir %{lpfiltersdir}
+%attr(755,root,root) %{lpfiltersdir}/atalkprint
+%attr(755,root,root) %{lpfiltersdir}/ncpprint
+%attr(755,root,root) %{lpfiltersdir}/smbprint
+%{lpfiltersdir}/printerdb
+%{lpfiltersdir}/testpage*
 %{_desktopdir}/LPRngTool.desktop
 %{_pixmapsdir}/LPRngTool.png
 %{_mandir}/man1/lprngtool.1*
