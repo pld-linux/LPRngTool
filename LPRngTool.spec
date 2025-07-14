@@ -48,7 +48,7 @@ SMB, Windows, HP JetDirect, lokalnie podłączonymi i niefiltrowanymi.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 %{__aclocal}
