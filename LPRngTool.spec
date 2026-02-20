@@ -2,7 +2,7 @@ Summary:	LPRngTool - printer configuration, monitoring and management utility wi
 Summary(pl.UTF-8):	LPRngTool - narzędziem do monitorowania i zarządzania systemem druku LPRng
 Name:		LPRngTool
 Version:	1.3.2
-Release:	5
+Release:	6
 License:	GPL v2
 Group:		Applications/Publishing
 Source0:	http://www.lprng.com/DISTRIB/LPRngTool/%{name}-%{version}.tgz
